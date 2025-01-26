@@ -8,6 +8,7 @@ public class Constants {
         public static final int KRIGHT_FOLLOWER_ID = 4;
     
         public static final int KDRIVE_MOTOR_CURRENT_LIMIT = 60;
+        public static final double KDRIVE_MOTOR_VOLTAGE_LiMIT = 12.0;
       }
     
       public static final class CoralReleaseConstants {
