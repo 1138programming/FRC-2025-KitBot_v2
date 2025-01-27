@@ -21,10 +21,13 @@ public class Constants {
       public static final class OperatorConstants {
         public static final int KDRIVER_CONTROLLER_PORT = 0;
         public static final int KOPERATOR_CONTROLLER_PORT = 1;
+        public static final double KDEAD_ZONE = 0.05;
+        
       }
 
       public static final class AutonomousConstants {
         public static final String KDEFAULT_AUTONOMOUS = "Default";
         public static final String KCUSTOM_AUTONMOUS = "My Auton";
       }
+
 }

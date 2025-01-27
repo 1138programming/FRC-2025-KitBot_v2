@@ -135,9 +135,11 @@ public class DifferentialDrivetrain extends SubsystemBase {
         return Commands.run(() -> drive.arcadeDrive(xSpeed.getAsDouble(), zRotation.getAsDouble()), drivetrain);
     } 
 
-    public void driveArcadeTalon(DoubleSupplier xSpeedL, DoubleSupplier xSpeedR) {
-        T_leftLead.set(controlMode, xSpeedL.getAsDouble());
-        T_rightLead.set(controlMode, xSpeedR.getAsDouble());
+    public Command driveArcadeTalon(double xSpeedL, double xSpeedR) {
+       return Commands.run(() -> {
+           T_leftLead.set(controlMode, xSpeedL);
+           T_rightLead.set(controlMode, xSpeedR);
+       });
     }
 
 

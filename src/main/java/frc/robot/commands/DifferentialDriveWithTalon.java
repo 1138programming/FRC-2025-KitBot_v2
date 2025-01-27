@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DifferentialDrivetrain;
 import java.util.function.DoubleSupplier;
 
+import frc.robot.Robot;
+
 public class DifferentialDriveWithTalon extends Command {
 
     DoubleSupplier leftSpeed;
     DoubleSupplier rightSpeed;
     DifferentialDrivetrain drivetrain;
 
-    public DifferentialDriveWithTalon(DifferentialDrivetrain drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
-        this.leftSpeed = leftSpeed;
-        this.rightSpeed = rightSpeed;
+    public DifferentialDriveWithTalon(DifferentialDrivetrain drivetrain) {
         this.drivetrain = drivetrain;
         addRequirements(drivetrain);
     }
@@ -23,12 +23,15 @@ public class DifferentialDriveWithTalon extends Command {
 
     @Override
     public void execute() {
-        drivetrain.driveArcadeTalon(rightSpeed, leftSpeed);
+        double lspeed = Robot.m_robotContainer.getXBoxLeftY();
+        double rspeed = Robot.m_robotContainer.getXBoxRightY();
+
+        drivetrain.driveArcadeTalon(lspeed, rspeed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.driveArcadeTalon(() -> 0.0, () -> 0.0);
+        drivetrain.driveArcadeTalon(0.0, 0.0);
     }
 
     @Override
