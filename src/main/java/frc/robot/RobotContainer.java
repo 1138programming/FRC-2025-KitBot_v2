@@ -9,19 +9,24 @@
  *  -Subsystems, commands, trigger mappings
  */
 
- package frc.robot;
+package frc.robot;
 
- import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
- import edu.wpi.first.wpilibj2.command.Command;
- import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
- import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+import static frc.robot.Constants.OperatorConstants;
+
+import frc.robot.Constants.CoralReleaseConstants;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Autonomous;
  
- import frc.robot.Constants.OperatorConstants;
- import frc.robot.Constants.CoralReleaseConstants;
- import frc.robot.commands.Autonomous;
- 
- import frc.robot.subsystems.DifferentialDrivetrain;
- import frc.robot.subsystems.CoralRelease;
+import frc.robot.subsystems.DifferentialDrivetrain;
+import frc.robot.subsystems.CoralRelease;
+import frc.robot.commands.DifferentialDriveWithTalon;
+import frc.robot.commands.CoralReleaseWithTalon;
+
  
  
  public class RobotContainer {
@@ -29,6 +34,8 @@
      //subsystems
      private final DifferentialDrivetrain drivetrain = new DifferentialDrivetrain();
      private final CoralRelease coralRelease = new CoralRelease();
+     private final DifferentialDriveWithTalon driveWithTalon = new DifferentialDriveWithTalon(drivetrain);
+    private final CoralReleaseWithTalon coralReleaseWithTalon = new CoralReleaseWithTalon(coralRelease);
  
      //controller: Driver
      private final CommandXboxController driverController = new CommandXboxController(
@@ -56,20 +63,17 @@
      //bind triggers to actions
      private void configureBindings() {
          //ex: Set A button to 
-         operatorController.a().whileTrue(coralRelease.runRoller(coralRelease, () -> CoralReleaseConstants.KROLLER_EJECT_VALUE, () -> 0));
+         operatorController.a().whileTrue(coralReleaseWithTalon);
  
          //Set default commad fro drivetrain to Command provided by factory
          //with joystick axes on driver controller
          //Y axis is inverted so pushing towards driver moves it forward
          //TODO: ask driver what they prefer
  
-         drivetrain.setDefaultCommand(
-             drivetrain.driveArcade(
-                 drivetrain, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
+         drivetrain.setDefaultCommand(driveWithTalon);
  
          //Set default for coral deposit with Oerator controller
-         coralRelease.setDefaultCommand(
-             coralRelease.runRoller(coralRelease, () -> operatorController.getRightTriggerAxis(), () -> operatorController.getLeftTriggerAxis()));
+         coralRelease.setDefaultCommand(coralReleaseWithTalon);
      }
  
      //Used to pass auton commands to the main {@link Robot} class.
@@ -77,6 +81,24 @@
      public Command getAutonomousCommand() {
          return autoChooser.getSelected();
      }
- 
+     
+     public double getXBoxLeftY() {
+        double Y = driverController.getLeftY();
+         if (Y > OperatorConstants.KDEAD_ZONE || Y < -OperatorConstants.KDEAD_ZONE) {
+             return Y;
+         } else {
+             return 0;
+         }
+     }
+
+     //get xbox left Y Axis 
+    public double getXBoxRightY() {
+        double Y = driverController.getRightY();
+        if (Y > OperatorConstants.KDEAD_ZONE || Y < -OperatorConstants.KDEAD_ZONE) {
+            return Y;
+        } else {
+            return 0;
+        }
+    }
  
  }
