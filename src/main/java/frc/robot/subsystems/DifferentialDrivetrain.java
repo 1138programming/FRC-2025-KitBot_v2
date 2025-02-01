@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants.*;
 
-  //Talon drivebase
+//Talon drivebase
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -119,11 +119,6 @@ public class DifferentialDrivetrain extends SubsystemBase {
 
         //Talon control
             controlMode = ControlMode.PercentOutput;
-
-
-
-        
-
     }
 
     @Override
@@ -135,13 +130,10 @@ public class DifferentialDrivetrain extends SubsystemBase {
         return Commands.run(() -> drive.arcadeDrive(xSpeed.getAsDouble(), zRotation.getAsDouble()), drivetrain);
     } 
 
-    public Command driveArcadeTalon(double xSpeedL, double xSpeedR) {
-       return Commands.run(() -> {
+    public void driveArcadeTalon(double xSpeedL, double xSpeedR) {
            T_leftLead.set(controlMode, xSpeedL);
-           T_rightLead.set(controlMode, xSpeedR);
-       });
+           T_rightLead.set(controlMode, xSpeedR);   
     }
-
 
     public void stop() {
         drive.stopMotor();

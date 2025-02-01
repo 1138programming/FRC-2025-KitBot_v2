@@ -21,6 +21,10 @@ public class CoralReleaseWithTalon extends Command{
 
     @Override
     public void execute() {
+        double forward = Robot.m_robotContainer.getXBoxLeftY();
+        double reverse = Robot.m_robotContainer.getXBoxRightY();
+
+        coralRelease.runRollerTalon(forward, reverse);
     }
 
     @Override

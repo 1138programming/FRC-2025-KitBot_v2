@@ -10,6 +10,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+//Talon
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
@@ -48,12 +50,12 @@ public class CoralRelease extends SubsystemBase {
 
     // configures motor for roller
     //limit is supposed to make sure the motors dont over heat
-    public Command runRoller(CoralRelease coralRelease, DoubleSupplier forward, DoubleSupplier reverse) {
-        return Commands.run(() -> rollerMotor.set(forward.getAsDouble() - reverse.getAsDouble()), coralRelease);
+    public void runRoller(DoubleSupplier forward, DoubleSupplier reverse) {
+        rollerMotor.set(forward.getAsDouble() - reverse.getAsDouble());
     }
 
-    public Command runRollerTalon(double forward, double reverse) {
-        return Commands.run(() -> T_rollerMotor.set(ControlMode.PercentOutput, forward - reverse));
+    public void runRollerTalon(double forward, double reverse) {
+        T_rollerMotor.set(ControlMode.PercentOutput, forward - reverse);
     }
 
 }

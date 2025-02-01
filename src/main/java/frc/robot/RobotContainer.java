@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
- 
+
 import static frc.robot.Constants.OperatorConstants;
 
 import frc.robot.Constants.CoralReleaseConstants;
@@ -63,18 +63,17 @@ import frc.robot.commands.CoralReleaseWithTalon;
      //bind triggers to actions
      private void configureBindings() {
          //ex: Set A button to 
-         operatorController.a().whileTrue(coralRelease.runRollerTalon(0.5, 0));
+         operatorController.a().whileTrue(coralReleaseWithTalon);
  
          //Set default commad fro drivetrain to Command provided by factory
          //with joystick axes on driver controller
          //Y axis is inverted so pushing towards driver moves it forward
          //TODO: ask driver what they prefer
  
-         drivetrain.setDefaultCommand(drivetrain.driveArcadeTalon(getXBoxRightY(), getXBoxLeftY()));
+         drivetrain.setDefaultCommand(driveWithTalon);
  
          //Set default for coral deposit with Oerator controller
-         coralRelease.setDefaultCommand(
-             coralRelease.runRoller(coralRelease, () -> operatorController.getRightTriggerAxis(), () -> operatorController.getLeftTriggerAxis()));
+         coralRelease.setDefaultCommand(coralReleaseWithTalon);
      }
  
      //Used to pass auton commands to the main {@link Robot} class.
