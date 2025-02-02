@@ -110,7 +110,9 @@ public class DifferentialDrivetrain extends SubsystemBase {
             T_leftFollow.follow(T_leftLead);
             T_rightFollow.follow(T_rightLead);
 
+            //left side must be set invereted due to motor oreintation on tank drive
             T_leftLead.setInverted(true);
+            T_leftFollow.setInverted(true);
 
             T_leftLead.configAllSettings(T_config);
             T_leftFollow.configAllSettings(T_config);

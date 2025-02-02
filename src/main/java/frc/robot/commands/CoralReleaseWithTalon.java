@@ -2,7 +2,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralRelease;
-import java.util.function.DoubleSupplier;
+import static frc.robot.Constants.CoralReleaseConstants.*;
+
 
 import frc.robot.Robot;
 
@@ -21,10 +22,7 @@ public class CoralReleaseWithTalon extends Command{
 
     @Override
     public void execute() {
-        double forward = Robot.m_robotContainer.getXBoxLeftY();
-        double reverse = Robot.m_robotContainer.getXBoxRightY();
-
-        coralRelease.runRollerTalon(forward, reverse);
+        coralRelease.runRollerTalon(0.0, KROLLER_EJECT_VALUE);
     }
 
     @Override

@@ -63,7 +63,7 @@ import frc.robot.commands.CoralReleaseWithTalon;
      //bind triggers to actions
      private void configureBindings() {
          //ex: Set A button to 
-         operatorController.a().whileTrue(coralReleaseWithTalon);
+         driverController.a().whileTrue(coralReleaseWithTalon);
  
          //Set default commad fro drivetrain to Command provided by factory
          //with joystick axes on driver controller
@@ -73,7 +73,6 @@ import frc.robot.commands.CoralReleaseWithTalon;
          drivetrain.setDefaultCommand(driveWithTalon);
  
          //Set default for coral deposit with Oerator controller
-         coralRelease.setDefaultCommand(coralReleaseWithTalon);
      }
  
      //Used to pass auton commands to the main {@link Robot} class.

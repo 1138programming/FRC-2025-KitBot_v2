@@ -6,7 +6,8 @@ public class Constants {
         public static final int KLEFT_FOLLOWER_ID = 2;
         public static final int KRIGHT_LEADER_ID = 3;
         public static final int KRIGHT_FOLLOWER_ID = 4;
-    
+        
+        public static final double KDRIVE_PERCENT_LIMIT = 0.6;
         public static final int KDRIVE_MOTOR_CURRENT_LIMIT = 60;
         public static final double KDRIVE_MOTOR_VOLTAGE_LiMIT = 12.0;
       }
